@@ -1,0 +1,31 @@
+{
+  "name": "adaptive-proxy-sdk",
+  "version": "1.6.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha",
+    "clean": "rm -r node_modules package-lock.json",
+    "docs": "rm -r docs 2>/dev/null; jsdoc -r lib -d docs -t node_modules/minami"
+  },
+  "keywords": [],
+  "author": "Adam Dorogi-Kaposi <adam.dorogi-kaposi@ibm.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM-Security/adaptive-proxy-sdk-javascript"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "lru-cache": "^6.0.0",
+    "node-cache": "^5.1.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-google": "^0.14.0",
+    "jsdoc": "^3.6.6",
+    "minami": "^1.2.3",
+    "mocha": "^8.3.0"
+  }
+}
