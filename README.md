@@ -6,7 +6,7 @@ authentication, authorization, and risk assessment using IBM Security Verify.
 
 ## Prerequisites
 
-* Configure your [IBM Security Verify Tenant](https://iamdevportal.us-east.mybluemix.net/verify/javascript/civ-getting-started/configuring-your-ci-tenant).
+* Configure your [IBM Security Verify Tenant](https://docs.verify.ibm.com/verify/docs/guides).
 
 ## Installation
 
@@ -24,7 +24,7 @@ parameters:
 
 | Parameter      | Type     | Description                                                                                                                                                    |
 | -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tenantUrl`    | `string` | The base URL of your [IBM Security Verify Tenant](https://iamdevportal.us-east.mybluemix.net/verify/javascript/civ-getting-started/configuring-your-ci-tenant) |
+| `tenantUrl`    | `string` | The base URL of your [IBM Security Verify Tenant](https://docs.verify.ibm.com/verify/docs/guides) |
 | `clientId`     | `string` | The identifier of your Security Verify application                                                                                                             |
 | `clientSecret` | `string` | The secret for your Security Verify application                                                                                                                |
 
