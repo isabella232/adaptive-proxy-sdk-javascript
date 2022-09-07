@@ -6,14 +6,14 @@ authentication, authorization, and risk assessment using IBM Security Verify.
 
 ## Prerequisites
 
-* Configure your [IBM Security Verify Tenant](https://iamdevportal.us-east.mybluemix.net/verify/javascript/civ-getting-started/configuring-your-ci-tenant).
+* Configure your [IBM Security Verify Tenant](https://docs.verify.ibm.com/verify/docs/guides).
 
 ## Installation
 
 Use [npm](https://github.com/npm/cli) to install the Proxy SDK:
 
 ```bash
-npm install adaptive-proxy-sdk
+npm install @ibm-verify/adaptive-proxy
 ```
 
 ## Configuration Settings
@@ -24,7 +24,7 @@ parameters:
 
 | Parameter      | Type     | Description                                                                                                                                                    |
 | -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tenantUrl`    | `string` | The base URL of your [IBM Security Verify Tenant](https://iamdevportal.us-east.mybluemix.net/verify/javascript/civ-getting-started/configuring-your-ci-tenant) |
+| `tenantUrl`    | `string` | The base URL of your [IBM Security Verify Tenant](https://docs.verify.ibm.com/verify/docs/guides) |
 | `clientId`     | `string` | The identifier of your Security Verify application                                                                                                             |
 | `clientSecret` | `string` | The secret for your Security Verify application                                                                                                                |
 
@@ -56,7 +56,7 @@ The context object should contain the following parameters:
 | [`lookupIdentitySources(context, transactionId, [sourceName]`](#lookup-identity-sources)                                                                                                     | ✅     | `Promise<Object>` |
 | [`evaluatePassword(context, transactionId, identitySourceId, username, password)`](#evaluate-a-password-verification)                                                                        | ✅     | `Promise<Object>` |
 | [`generateFIDO(context, transactionId, relyingPartyId, userId)`](#generate-a-fido-verification)                                                                                              | ✅     | `Promise<Object>` |
-| [`evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON)`](#evaluate-a-fido-verification)                                            | ✅     | `Promise<Object>` |
+| [`evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON, credentialId)`](#evaluate-a-fido-verification)                                            | ✅     | `Promise<Object>` |
 | [`generateQR(context, transactionId, profileId)`](#generate-a-qr-login-verification)                                                                                                         | ✅     | `Promise<Object>` |
 | [`evaluateQR(context, transactionId)`](#evaluate-a-qr-login-verification)                                                                                                                    | ✅     | `Promise<Object>` |
 | [`generateEmailOTP(context, transactionId, enrollmentId)`](#generate-an-email-otp-verification)                                                                                              | ✅     | `Promise<Object>` |
@@ -344,7 +344,7 @@ challenge to be sent back to the user for signing.
 | `context`        | `Object` | See [Context Object](#context-object).                                     |
 | `transactionId`  | `string` | The transaction ID received in [`assessPolicy`](#assess-a-policy).         |
 | `relyingPartyId` | `string` | The identifier of the relying party associated with the FIDO registration. |
-| `userId`         | `string` | The identifier of the OIDC user for which to initiate a FIDO verification. |
+| `userId`         | `string` | The identifier of the OIDC user for which to initiate a FIDO verification. Optional if performing first-factor. |
 
 #### Response
 
@@ -387,7 +387,7 @@ Complete a FIDO verification after receiving and signing a FIDO
 challenge from [`generateFIDO`](#generate-a-fido-verification). This
 will result in either an `allow`, `deny`, or `requires` response.
 
-#### `evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON)`
+#### `evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON, credentialId)`
 
 | Parameter           | Type     | Description                                                                                  |
 | ------------------- | -------- | -------------------------------------------------------------------------------------------- |
@@ -398,6 +398,7 @@ will result in either an `allow`, `deny`, or `requires` response.
 | `userHandle`        | `string` | The identifier for the user who owns this authenticator.                                     |
 | `signature`         | `string` | The received and signed FIDO challenge from [`generateFIDO`](#generate-a-fido-verification). |
 | `clientDataJSON`    | `string` | The base64 encoded client data JSON object.                                                  |
+| `credentialId`    | `string` | The Id of the credential (from authenticator).                                                  |
 
 #### Responses
 
@@ -466,7 +467,7 @@ returned.
 #### Example Usage
 
 ```javascript
-adaptive.evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON)
+adaptive.evaluateFIDO(context, transactionId, relyingPartyId, authenticatorData, userHandle, signature, clientDataJSON, credentialId)
     .then((result) => {
       res.send(result);
     }).catch((error) => {
