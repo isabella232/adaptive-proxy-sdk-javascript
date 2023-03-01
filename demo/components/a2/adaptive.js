@@ -1,8 +1,5 @@
 // Import the Adaptive SDK.
-const Adaptive = require('../../../lib/adaptive');
-// TODO: The above 'require' statement should normally be
-// `require('adaptive-proxy-sdk')` after installing the 'adaptive-proxy-sdk' npm
-// package.
+const Adaptive = require('@ibm-verify/adaptive-proxy');
 
 // Load contents of `.env` into `process.env`.
 require('dotenv').config();
